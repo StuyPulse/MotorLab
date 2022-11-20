@@ -11,7 +11,7 @@ Installing from GitHub
 Make sure you're signed in on https://github.com/ before you start. To make a fork of this code so that you can edit and keep your own version, click on the "fork" button at the top right (shown below). Leave all of the settings as is and press "fork" again.
 ![Fork button on github](images/fork.png)
 
-To download your code go back to https://github.com/ and find the new MotorLab. Click on “Code”, then “HTTPS”, and then copy the link.
+To download your code go back to https://github.com/ and find the new MotorLab that is under YOUR github account. Click on “Code”, then “HTTPS”, and then copy the link.
 ![Cloning from github using HTTPS](images/clone.png)
 
 Open Git Bash (or Terminal if you're on a Mac) and type `git clone <link here>` (in Git Bash you may need to right click and press paste).
@@ -93,13 +93,13 @@ To run the robot, click on "Autonomous" in the robot state selector. To restart,
 
 ## MotorLab
 
-Motors are the cause of **any** movement that happens on the robot, so understanding how to interact with them in code is extremely fundamental for programming all parts of the robot. 
+Motors are the cause of movement on a robot, so understanding how to interact with them in code is fundamental for robot programming. 
 
-In general, motors are devices that convert electrical energy into motion, which is a complicated way of saying that they spin when you power them. As a result, the most common way to get a motor to do something is to give it what's called a "duty cycle", which is a value between -1.0 and +1.0 which dictates at what percent of full power the motor will spin at. 
+In general, motors are devices that convert electrical energy into motion, which is a complicated way of saying that they spin when you power them. As a result, the most common way to get a motor to do something is to give it what's called a *duty cycle*, which is a value between -1.0 and +1.0 which dictates at what percent of full power the motor will spin at. 
 
-These facts about motors are reflected in the code that is used to control them. The most common way motors are controlled in code is by setting their duty cycle value, usually by something that looks like `motor.set(1.0)`. 
+These facts about motors are reflected in the code that is used to control them. The most common way motors are controlled in code is by setting their *duty cycle*, usually by something that looks like `motor.set(1.0)`. 
 
-For a robot's drivetrain, motors allow it to move, whether that be through human input or autonomous routines. This lab will guide you through a series of challenges to get used to utilizing motors for simple drivetrain motion, as well as building the foundation for using **control theory** to use motors for autonomous control.
+For a robot's drivetrain, motors allow it to move, whether that be through human input or autonomous routines. This lab will guide you through a series of challenges about simple drivetrain motion as well as simple autonomous control using **control theory**.
 
 
 ### Motor Functions
@@ -135,7 +135,7 @@ For a robot's drivetrain, motors allow it to move, whether that be through human
 
 Using the **Motor Functions** given above, and all the Java knowledge learned (data types, variables, operators, if's and conditionals), complete these challenges within the brackets for a given function. They can be found in the [DriveFunctions.java](src/main/java/com/stuypulse/robot/commands/DriveFunctions.java) file. 
 
-Each of these functions will run continuously, so you do **NOT** need loops to run these functions. That is handled for you.
+What you code will be run continuously, so you do **NOT** need loops to run these functions. That is handled for you.
 
 <details><summary>Driving</summary><br>
 Simply get your romi to drive straight! No need to stop it.
@@ -160,42 +160,42 @@ Use `void turnLeft(Motor left, Motor right) {}`.
 </details>
 
 <details><summary>Basic Autonomy</summary><br>
-Until this point, the robot has just run infinitely based on what you have hard coded. Even if you replaced the 1's and -1's with inputs from a gamepad, the robot still relies on human instruction. 
+Until this point, the robot has just run infinitely based on what you have hard coded. Let's get it to move a little smarter by having it drive to a distance.
 
-Let's start exploring autonomous robot movement, which should rely as minimally as possible on human input. One of the most essential types of autonomous movement for a robot is driving to a distance.
+This is considered autonomous motion as the robot is moving without human instruction.
 
-The distance that we want the robot to stop at is called the *setpoint*. Create a variable inside the function that represents the setpoint, and set it to `60.0`. (It can really be anything, but that's why you made it into a variable -- 60 is a good distance though). 
+The distance that we want the robot to stop at is called the *setpoint*. Create a variable inside the function that represents the setpoint, and set it to `60.0`. (it can really be anything, but 60 is a good distance). 
+
+Create code that drives forward, but stops once the robot has past its setpoint.
 
 Use `void stopDistance(Motor left, Motor right) {}`.
 
-What you have created is considered a *control law*, or some mathematical formula or logic that will make a *measurement* approach a *setpoint*. (Think: the measurement in this case is the distance of the robot). By telling the motors to drive forward when the setpoint has not been reached, we are increasing the measurement until it approaches a setpoint.
+What you have created is a *control law*, which is a mathematical formula or some logic that will make a robot's *measurement* approach a *setpoint*. 
 
-A good *control law* is essential for good autonomous control. This is a very simple control law, and the next few challenges will have you build on it to make better intelligent robots.
+In our case the *measurement* is the distance travelled by the motors, and the *setpoint* is where we want the motors to be. By telling the motors to drive forward when the *setpoint* has not been reached, we are increasing the measurement until it approaches a setpoint.
+
+A good *control law* is essential for autonomous control. 
 </details>
     
 <details><summary>Bang Bang</summary><br>
 
-There are several issues with our first control law. Firstly, if our robot is really heavy and we let it get to a high speed, it will have built up a lot of momentum. By the time we tell it to stop, it will simply roll past the *setpoint*. 
+There are several issues with our first control law. Firstly, if our robot is really heavy and we let it get to a high speed, by the time we tell it to stop, it will simply roll past the *setpoint*. 
 
-(Think about if you were running full speed and suddenly planted your foot into the ground and stopped running. You would either topple over or hurt your leg. The robot will feel these same forces and topple over or damage itself).
+A related issue is that the control law does not handle if the robot is in front of its setpoint. If the robot rolls over its setpoint or the setpoint started behind the robot, then it will not tell the robot to not move. 
 
-A related issue is that the control law does not handle if the robot is in front of its setpoint, rather than behind. If the robot rolls over its setpoint or the setpoint was simply behind the robot, then it will tell the robot to not move. 
-
-What we can do is write a more advanced control law that will send the robot backwards if its past its setpoint and forward if its behind its setpoint.
+Write a more advanced control law that can move the robot back to its setpoint, rather than just stopping it. 
 
 Use `void bangBang(Motor left, Motor right) {}`.
 
-This control law is called Bang-Bang and its issues will make it clear how to improve even more.
+This control law is called Bang-Bang.
 </details>
     
 <details><summary>Less Bang</summary><br>
-Bang Bang will *technically* work, but clearly when you run it, it continually oscillates. It also the same issue as our first law, where make sudden changes in direction are inconsistent and dangerous.
+Bang Bang will *technically* work, but clearly when you run it, it continually oscillates around the setpoint. It has same issue as our first law, where making sudden changes in direction can be inconsistent and dangerous.
 
-By changing how fast the control law will control the robot, we can get a safer and better *control loop* (control loop just refers to the code that uses a control law on a motor).
+You can change how fast the Bag Bang law runs by simply running the motors at a smaller value (as opposed to -1.0 and +1.0). When the value is smaller, the robot will reach the setpoint slower but there will be smaller oscillations. When the value is higher, the robot reaches the setpoint quickler, but with larger oscillations.
 
-Rather than running the motors at +1.0 and -1.0, run them at a smaller value. If the value is too low, you will get a slow response time, but your oscillations will be lesser. If the value is high (e.g. 1.0) it will reach the setpoint really quickly but oscillate a lot.
-
-For this Bang Bang version, tune the value you are feeding your motor to find a good balance of response time and oscillation.
+For this Bang Bang version, play around with the value you are sending the motors to find a good balance of response time to oscillations. This is a manual process called *tuning*. 
 
 Use `void lessBang(Motor left, Motor right) {}`
 </details>
