@@ -202,29 +202,25 @@ Use `void lessBang(Motor left, Motor right) {}`
     
 <details><summary>Proportional Control</summary><br>
 
-A big problem with Bang Bang (even when tuned) is that it's always running at a constant speed. 
+We can get inspiration for another control algorithm from real life.
 
-Ideally want to avoid running at full speed when near the target, but DO want to go full speed when far from the target. Rather than a constant speed, we want the percentage we are giving to the motor to be proportional to *error*, which is to say the higher the error, the faster the motors run. *Error* is the difference between the *setpoint* and the *measurement* (error = setpoint - measurement). 
+Whenever you're running across the street to not miss the light, you run full speed across the street. As you approach the curb, though, you don't want to run full speed to the mom with her two kids standing there. So, you slow down as you run to the curb. The effort you put into running is proportional to how far you are from the curb.
 
-If we want to code a control law in which speed to the motor is proportional to error, we will need a couple of variables: *setpoint* (set this to any number, e.g. `60.0`), *measurement* (find the average of the left and right motors' distances), and *error* (use the formula above to calculate error).
+When we are farthest from the curb, we want to run as fast as possible, but when we are are at the curb we don't want to be moving. In between, we want to slow down.
 
-The last variable we will need is the value that we are going to multiply error by (this is what being proportional to error means -- being a multiple of its value). Create a variable for this number called *kP* (set it to `1` for now). 
+This can be put into terms we already know. The *setpoint* is the width of the street (initial distance to the curb). The *measurement* is how far you've already run into the street. 
 
-Lastly, calculate the value to feed to the motors using *kP* and *error* and set the motors to that value.
+We want to introduce a new term, *error* which is the *setpoint* minus the *measurement*.
 
-At this point, you can run your code, but it will basically be a bang bang loop. This is because the value you pass to `.set` is clamped between -1 and +1, so when the error is above `1.0` (because *kP* is `1` for now) the motors are going to be full speed. It is only when you're within an inch does the robot start to slow down, but by then it is too late.
+When running across the curb, the effort is proportional to error, and when getting a robot to drive to a distance, the *duty cycle* is 
+proportional to the error.
 
-So then what *DO* we set *kP* to get a good response? The unfortunate answer is that you need to tune it to get a good value, but you can make good initial guesses. 
+Code the control law described above so that when the autonomous routine starts it will calculate `1.0` exactly and will decrease down to `0.0` as the robot drives forward. Once you find this value, scale it up or down as needed to find a good balance between response time and oscillations.
 
-Start by figuring out an expression for *kP* that will ensure that when the autonomous routine starts it will calculate `1.0` exactly and will decrease down to zero as the robot drives forward. Once you find this value, scale it up or down as needed to find a good balance between response time and oscillations.
+**THERE ARE NO `if` STATEMENTS NECESSARY**
 
 Use `void betterControl(Motor left, Motor right) {}`.
 
 This control algorithm is called a P-Control, which is one component of a greater algorithm called PID-Control.
-</details>
 
-<details><summary>Derivative Control</summary><br>
-
-Use `void bestestControl(Motor left, Motor right) {}`.
 </details>
-    
