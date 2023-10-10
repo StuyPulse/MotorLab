@@ -1,22 +1,21 @@
 package com.stuypulse.robot.util;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.stuypulse.robot.constants.Settings.Limits;
-
-import edu.wpi.first.wpilibj.Encoder;
 
 public class CANSparkMaxes extends Motor {
 
     private CANSparkMax[] motors;
-    private Encoder encoder;
+    private RelativeEncoder encoder;
 
-    public CANSparkMaxes(Encoder encoder, CANSparkMax... motors) {
+    public CANSparkMaxes(RelativeEncoder encoder, CANSparkMax... motors) {
         this.motors = motors;
         this.encoder = encoder;
     }
 
     @Override
-    public void setInternal(double speed) {
+    public void set(double speed) {
         for (CANSparkMax motor : motors) {
             motor.setVoltage(speed * Limits.CAN_MAX_VOLTS);
         }
@@ -24,12 +23,12 @@ public class CANSparkMaxes extends Motor {
 
     @Override
     public double getSpeed() {
-        return encoder.getRate();
+        return encoder.getVelocity();
     }
 
     @Override
     public double getDistance() {
-        return encoder.getDistance();
+        return encoder.getPosition();
     }
 
 }

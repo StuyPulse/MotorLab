@@ -46,15 +46,17 @@ public class RobotContainer {
     /*** BUTTONS ***/
     /***************/
 
-    private void configureButtonBindings() {}
+    private void configureButtonBindings() {
+        driver.getDPadUp().whileTrue(new MotorCommand(robot, DriveFunctions::driveForwards));
+    }
 
     /**************/
     /*** AUTONS ***/
     /**************/
 
     public void configureAutons() {
-        autonChooser.setDefaultOption("Drive Forwards", new MotorCommand(robot, DriveFunctions::driveForwards));
-        autonChooser.addOption("Drive Backwards", new MotorCommand(robot, DriveFunctions::driveBackwards));
+        autonChooser.setDefaultOption("Drive Backwards", new MotorCommand(robot, DriveFunctions::driveBackwards));
+        autonChooser.addOption("Drive Forwards", new MotorCommand(robot, DriveFunctions::driveForwards));
         autonChooser.addOption("Turn Right", new MotorCommand(robot, DriveFunctions::turnRight));
         autonChooser.addOption("Turn Left", new MotorCommand(robot, DriveFunctions::turnLeft));
         autonChooser.addOption("Arc Right", new MotorCommand(robot, DriveFunctions::arcRight));

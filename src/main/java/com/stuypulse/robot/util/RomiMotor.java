@@ -24,7 +24,7 @@ public class RomiMotor extends Motor {
     }
 
     @Override
-    public void setInternal(double speed) {
+    public void set(double speed) {
         targetSpeed = speed;
     }
 

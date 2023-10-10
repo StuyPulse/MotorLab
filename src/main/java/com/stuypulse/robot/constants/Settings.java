@@ -29,7 +29,7 @@ public interface Settings {
     }
 
     public interface Field {
-        Translation2d FIELD_OFFSET = new Translation2d(8, 4);
+        Transform2d FIELD_OFFSET = new Transform2d(new Translation2d(0, 0), new Rotation2d(0));
     }
 
     public interface Romi {
@@ -50,42 +50,6 @@ public interface Settings {
             double kS = 0.45;
             double kV = 10.00;
             double kA = 0.186;
-        }
-    }
-    
-    public interface Excelsior {
-
-        double TRACK_WIDTH = Units.inchesToMeters(26.9);
-
-        public interface Encoders {
-        
-            public interface GearRatio {
-    
-                public interface Stages {
-                    double INITIAL_STAGE = (11.0 / 50.0);
-    
-                    double HIGH_GEAR_STAGE = (50.0 / 34.0);
-                    double LOW_GEAR_STAGE = (24.0 / 60.0);
-    
-                    double GRAYHILL_STAGE = (12.0 / 36.0);
-    
-                    double THIRD_STAGE = (34.0 / 50.0);
-    
-                    double EXTERNAL_STAGE = (1.0 / 1.0);
-                }
-    
-                /** = 0.22666 */
-                double GRAYHILL_TO_WHEEL =
-                        Stages.GRAYHILL_STAGE * Stages.THIRD_STAGE * Stages.EXTERNAL_STAGE;
-            }
-    
-            double WHEEL_DIAMETER = Units.inchesToMeters(4);
-            double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
-    
-            double GRAYHILL_PULSES_PER_REVOLUTION = 256;
-            double GRAYHILL_DISTANCE_PER_PULSE =
-                    (WHEEL_CIRCUMFERENCE / GRAYHILL_PULSES_PER_REVOLUTION)
-                            * GearRatio.GRAYHILL_TO_WHEEL;
         }
     }
 }

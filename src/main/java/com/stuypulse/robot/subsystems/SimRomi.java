@@ -48,7 +48,7 @@ public class SimRomi extends Robot {
 			WHEEL_DIAMETER_METERS / 2,
 			new Matrix<N7, N1>(Nat.N7(), Nat.N1()));
 
-		odometry = new DifferentialDriveOdometry(getRotation2d());
+			odometry = new DifferentialDriveOdometry(getRotation2d(), 0, 0);
 
 		field = new Field2d();
 
@@ -70,7 +70,7 @@ public class SimRomi extends Robot {
 	public void reset(Pose2d pose) {
 		sim.setPose(pose);
 
-		odometry.resetPosition(pose, new Rotation2d());
+		odometry.resetPosition(new Rotation2d(), 0, 0, pose);
 	}
 
 	public Rotation2d getRotation2d() {
@@ -103,6 +103,8 @@ public class SimRomi extends Robot {
 	public void periodic() {
 	  	odometry.update(getRotation2d(), sim.getLeftPositionMeters(), sim.getRightPositionMeters());
 
+		SmartDashboard.putNumber("left voltage", leftVoltage);
+  
 		sim.setInputs(
 			clamp(leftVoltage),
 			clamp(rightVoltage)
@@ -110,7 +112,7 @@ public class SimRomi extends Robot {
 
 		sim.update(0.02);
 
-		field.setRobotPose(new Pose2d(getPose().getTranslation().plus(Settings.Field.FIELD_OFFSET), getPose().getRotation()));
+		field.setRobotPose(getPose().plus(Settings.Field.FIELD_OFFSET));
 
 		SmartDashboard.putNumber("Left Velocity", sim.getLeftVelocityMetersPerSecond());
 		SmartDashboard.putNumber("Right Velocity", sim.getRightVelocityMetersPerSecond());

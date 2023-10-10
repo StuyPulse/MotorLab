@@ -14,6 +14,7 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/SimMotor": "Subsystem",
       "/LiveWindow/SimRomi": "Subsystem",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/SmartDashboard/Autonomous": "String Chooser",

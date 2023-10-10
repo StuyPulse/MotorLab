@@ -27,23 +27,4 @@ public interface Ports {
 
         int GEAR_SHIFT = 0;
     }
-
-    public interface Excelsior {
-        int LEFT_TOP = 10;
-        int LEFT_MIDDLE = 11;
-        int LEFT_BOTTOM = 12;
-
-        int RIGHT_TOP = 13;
-        int RIGHT_MIDDLE = 14;
-        int RIGHT_BOTTOM = 15;
-
-        int GEAR_SHIFT_FORWARD = 0;
-        int GEAR_SHIFT_REVERSE = 1;
-
-        int LEFT_GRAYHILL_A = 0;
-        int LEFT_GRAYHILL_B = 1;
-
-        int RIGHT_GRAYHILL_A = 2;
-        int RIGHT_GRAYHILL_B = 3;
-    }
 }
