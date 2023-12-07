@@ -51,5 +51,11 @@ public interface Settings {
             double kV = 10.00;
             double kA = 0.186;
         }
+
+        public interface PID {
+            double kP = 0.5;
+            double kI = 0;
+            double kD = 0.1;
+        }
     }
 }

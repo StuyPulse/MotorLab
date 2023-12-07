@@ -64,6 +64,7 @@ public class RobotContainer {
         autonChooser.addOption("Stop Distance", new MotorCommand(robot, DriveFunctions::stopDistance));
         autonChooser.addOption("Bang-bang", new MotorCommand(robot, DriveFunctions::bangBang));
         autonChooser.addOption("Better Control", new MotorCommand(robot, DriveFunctions::betterControl));
+        autonChooser.addOption("Bestest Control", new MotorCommand(robot, DriveFunctions::bestestControl));
 
         SmartDashboard.putData("Autonomous", autonChooser);
     }

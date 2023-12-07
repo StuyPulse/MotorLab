@@ -40,7 +40,17 @@
       }
     }
   },
-  "NetworkTables View": {
-    "visible": false
+  "NetworkTables": {
+    "transitory": {
+      "SmartDashboard": {
+        "Field": {
+          "open": true
+        },
+        "Romi": {
+          "open": true
+        },
+        "open": true
+      }
+    }
   }
 }
