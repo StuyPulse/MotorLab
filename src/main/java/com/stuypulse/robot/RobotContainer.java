@@ -13,6 +13,7 @@ import com.stuypulse.robot.subsystems.Romi;
 import com.stuypulse.stuylib.input.Gamepad;
 import com.stuypulse.stuylib.input.gamepads.keyboard.SimKeyGamepad;
 
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,9 +22,8 @@ public class RobotContainer {
 
     // Gamepads
     public final Gamepad driver = new SimKeyGamepad();
-    
-    // Subsystem
-    private Robot robot = new SimRomi();
+
+    private Robot robot = RobotBase.isReal() ? new Romi() : new SimRomi();
 
     // Autons
     private static SendableChooser<Command> autonChooser = new SendableChooser<>();

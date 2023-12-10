@@ -6,6 +6,7 @@ import com.stuypulse.robot.subsystems.Robot;
 import com.stuypulse.robot.util.Motor;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class MotorCommand extends CommandBase {
@@ -22,7 +23,7 @@ public class MotorCommand extends CommandBase {
 
     @Override
     public void initialize() {
-        robot.reset(new Pose2d());
+        robot.reset(new Pose2d(8, 4, new Rotation2d()));
     }
 
     @Override
